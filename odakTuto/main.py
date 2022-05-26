@@ -18,10 +18,16 @@ distance = 0.15
 
 # target image
 
-data_loader = load_image("target/indian_head.png")
+data_loader = load_image("target/usaf1951.png")
 
 target = data_loader.type(torch.FloatTensor)
 target = target.view(resolution)
+
+# nomalize
+print(torch.max(target))
+if torch.max(target) > 1:
+    target -= target.min(1, keepdim=True)[0]
+    target /= target.max(1, keepdim=True)[0]
 
 # target = torch.zeros(resolution[0], resolution[1])
 # target[300:700, 400:450] = 1.
